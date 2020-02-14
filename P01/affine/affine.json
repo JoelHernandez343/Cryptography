@@ -1,0 +1,11 @@
+{
+    "alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ,._",
+    "messageFile": "message.txt",
+    "encryptedMessageFile": "message.aff",
+    "spaces": false,
+    "key": {
+        "a": 31,
+        "b": 6,
+        "random": true
+    }
+}

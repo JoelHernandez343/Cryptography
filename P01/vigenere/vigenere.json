@@ -1,0 +1,7 @@
+{
+    "alphabet": "alphabet.txt",
+    "key": "SkL_M",
+    "messageFile": "message.txt",
+    "encryptedMessageFile": "message.vig",
+    "spaces": false
+}

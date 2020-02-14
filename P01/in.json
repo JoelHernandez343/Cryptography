@@ -1,0 +1,11 @@
+{
+    "alphabet": "abcdefghijklmnñopqrstuvwxyz",
+    "messageFile": "clear.txt",
+    "encryptedMessageFile": "clear.vig",
+    "spaces": true,
+    "key": {
+        "a": 12,
+        "b": 10,
+        "random": true
+    }
+}
