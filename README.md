@@ -1,5 +1,6 @@
 # Cryptography
-## Optional Cryptography Course 2020, first semester @ ESCOM with Sandra Díaz Santiago.
+## Optional Cryptography Course 2020
+### @ ESCOM with Sandra Díaz Santiago.
 Repositorio en desarrollo.
 
 
