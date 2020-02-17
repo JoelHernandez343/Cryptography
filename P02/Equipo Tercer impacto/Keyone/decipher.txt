@@ -1,0 +1,4 @@
+{
+    "alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ _.,",
+    "key": "nKcSN"
+}
