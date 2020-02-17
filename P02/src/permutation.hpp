@@ -3,14 +3,18 @@
 
 #include <iostream>
 #include <vector>
-#include <utility>
+#include <tuple>
 
-std::vector< std::pair<int, int> > makePermutation(int n){
-    std::vector< std::pair<int, int> > r (n);
+std::vector< std::tuple<int, int> > makePermutation(int n){
+
+    std::vector< std::tuple<int, int> > r(n);
+
     for (int i = 0; i < n; ++i){
-        auto t = std::tuple(1, 1.0, 'a');
-    }
 
+        
+
+    }
+    
 }
 
 #endif
