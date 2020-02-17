@@ -4,10 +4,10 @@
 #include <filesystem>
 #include <fstream>
 
-#include <json.hpp>
-#include <cxxopts.hpp>
+#include "../../include/json.hpp"
+#include "../../include/cxxopts.hpp"
 
-#include "../utf8.hpp"
+#include "../../include/utf8.hpp"
 #include "vigenere.hpp"
 
 // Show an error stylishly

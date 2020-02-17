@@ -8,10 +8,10 @@
 #include <tuple>
 #include <string>
 
-#include <json.hpp>
-#include <cxxopts.hpp>
+#include "../../include/cxxopts.hpp"
+#include "../../include/json.hpp"
 
-#include "../utf8.hpp"
+#include "../../include/utf8.hpp"
 #include "affine.hpp"
 
 // Show an error stylishly
@@ -25,9 +25,11 @@ void error(std::string message ,cxxopts::Options& options){
 
 // Check is an alphabet has white space
 bool checkSpace(std::string& alphabet){
+
     auto alph = utf8::trim(alphabet);
 
     return std::find(alph.begin(), alph.end(), " ") == alph.end() ? false : true;
+
 }
 
 // Read a file and outputs a single line with the whole file

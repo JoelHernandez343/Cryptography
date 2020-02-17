@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../utf8.hpp"
+#include "../../include/utf8.hpp"
 
 namespace vigenere {
 

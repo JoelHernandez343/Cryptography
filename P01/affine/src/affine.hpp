@@ -11,7 +11,7 @@
 #include <vector>
 #include <tuple>
 
-#include "../utf8.hpp"
+#include "../../include/utf8.hpp"
 
 namespace affine {
 
