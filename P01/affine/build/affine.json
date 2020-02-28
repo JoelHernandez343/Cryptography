@@ -4,8 +4,8 @@
     "encryptedMessageFile": "message.aff",
     "spaces": false,
     "key": {
-        "a": 31,
-        "b": 6,
+        "a": 9,
+        "b": 14,
         "random": true
     }
 }

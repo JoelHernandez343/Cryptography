@@ -116,9 +116,6 @@ namespace affine {
                 coprimes.push_back(i);
         }
 
-        for (int i = 0; i < coprimes.size(); ++i)
-            std::cout << coprimes[i] << std::endl;
-
         int ranIndex = rand() % coprimes.size();
         int ranB = rand() % (n - 1) + 1;
 
