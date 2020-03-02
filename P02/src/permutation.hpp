@@ -7,7 +7,8 @@
 
 namespace perm {
 
-    // Checks if the given permutation is valid
+    // Checks if the given permutation is complete (no compression or expansion)
+    inline
     bool isValidPermutation(std::vector<int> permutation){
 
         std::sort(permutation.begin(), permutation.end());
@@ -22,13 +23,11 @@ namespace perm {
 
     // Permute the vector set with the permutation provided
     template<typename T, typename A>
-    auto permutation(std::vector<T,A> const& set, std::vector<int> permutation){
+    inline
+    auto permute(std::vector<T,A> const& set, std::vector<int> & permutation){
 
-        if (!isValidPermutation(permutation))
-            throw std::runtime_error("Invalid permutation");
-
-        std::vector<T, A> r (set.size());
-        for (int i = 0; i < set.size(); ++i)
+        std::vector<T, A> r (permutation.size());
+        for (int i = 0; i < r.size(); ++i)
             r[i] = set[permutation[i]];
 
         return r;
@@ -36,10 +35,11 @@ namespace perm {
     }
 
     // Calculate the inverse permutation
+    inline
     auto inversePermutation(std::vector<int> permutation){
 
         if (!isValidPermutation(permutation))
-            throw std::runtime_error("Invalid permutation");
+            throw std::runtime_error("Invalid permutation: No inverse");
 
         std::vector<int> r (permutation.size());
         for (int i = 0; i < r.size(); ++i)
@@ -50,6 +50,7 @@ namespace perm {
     }
 
     // Generate a random permutation of size n
+    inline
     auto generatePermutation(int n){
 
         std::vector<int> permutation(n);
