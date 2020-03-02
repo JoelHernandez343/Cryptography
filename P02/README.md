@@ -1,2 +1,2 @@
 # Practice number two
-Implementando simplified des
+Implementing simplified des
