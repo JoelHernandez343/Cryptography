@@ -1,3 +1,9 @@
+/*
+ * Created by Joel Hernández
+ * Github: github.com/JoelHernandez343
+ */
+
+
 #ifndef J_PERMUTATION_HEADER_FUNCTIONS
 #define J_PERMUTATION_HEADER_FUNCTIONS
 

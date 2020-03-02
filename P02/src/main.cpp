@@ -1,3 +1,8 @@
+/*
+ * Created by Joel Hernández
+ * Github: github.com/JoelHernandez343
+ */
+
 #include <iostream>
 #include <vector>
 
