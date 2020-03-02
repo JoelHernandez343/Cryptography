@@ -137,58 +137,47 @@ namespace sdes {
 
     }
 
+    // Encrypt - Decrypt
+    inline
+    auto crypt(unsigned char input, std::vector<int> & ip,std::vector<int> & exp, bool s0[4][4][2], bool s1[4][4][2], std::vector<int> & p4, short key, std::vector<int> & p10, std::vector<int> & p8, bool encrypt){
+
+        auto [k1, k2] = generateKeys(key, p10, p8);
+        auto in = primitiveToVector(input, 8);
+        auto inverseIp = perm::inversePermutation(ip);
+
+        in = perm::permute(in, ip);
+
+        std::vector<bool> l1 (4), r1 (4);
+        for (int i = 0; i < 4; ++i){
+            l1[i] = in[i];
+            r1[i] = in[i + 4];
+        }
+
+        auto [l2, r2] = round(l1, r1, exp, encrypt ? k1 : k2, s0, s1, p4);
+        auto [l3, r3] = round(r2, l2, exp, encrypt ? k2 : k1, s0, s1, p4);
+
+        for (int i = 0; i < 4; ++i){
+            in[i] = l3[i];
+            in[i + 4] = r3[i];
+        }
+
+        return perm::permute(in, inverseIp);
+
+    }
+
     // Encrypt using sdes
     inline
     auto encrypt(unsigned char message, std::vector<int> & ip,std::vector<int> & exp, bool s0[4][4][2], bool s1[4][4][2], std::vector<int> & p4, short key, std::vector<int> & p10, std::vector<int> & p8){
 
-        auto [k1, k2] = generateKeys(key, p10, p8);
-        auto m = primitiveToVector(message, 8);
-        auto inverseIp = perm::inversePermutation(ip);
-        
-        m = perm::permute(m, ip);
-        
-        std::vector<bool> l1 (4), r1 (4);
-        for (int i = 0; i < 4; ++i){
-            l1[i] = m[i];
-            r1[i] = m[i + 4];
-        }
+        return crypt(message, ip, exp, s0, s1, p4, key, p10, p8, true);
 
-        auto [l2, r2] = round(l1, r1, exp, k1, s0, s1, p4);
-        auto [l3, r3] = round(r2, l2, exp, k2, s0, s1, p4);
-
-        for (int i = 0; i < 4; ++i){
-            m[i] = l3[i];
-            m[i + 4] = r3[i];
-        }
-
-        return perm::permute(m, inverseIp);
     }
 
     // Decrypt using sdes
     inline 
     auto decrypt(unsigned char code, std::vector<int> & ip,std::vector<int> & exp, bool s0[4][4][2], bool s1[4][4][2], std::vector<int> & p4, short key, std::vector<int> & p10, std::vector<int> & p8){
 
-        auto [k1, k2] = generateKeys(key, p10, p8);
-        auto c = primitiveToVector(code, 8);
-        auto inverseIp = perm::inversePermutation(ip);
-
-        c = perm::permute(c, ip);
-
-        std::vector<bool> l1 (4), r1 (4);
-        for (int i = 0; i < 4; ++i){
-            l1[i] = c[i];
-            r1[i] = c[i + 4];
-        }
-
-        auto [l2, r2] = round(l1, r1, exp, k2, s0, s1, p4);
-        auto [l3, r3] = round(r2, l2, exp, k1, s0, s1, p4);
-
-        for (int i = 0; i < 4; ++i){
-            c[i] = l3[i];
-            c[i + 4] = r3[i];
-        }
-
-        return perm::permute(c, inverseIp);
+        return crypt(code, ip, exp, s0, s1, p4, key, p10, p8, false);
 
     }
 
