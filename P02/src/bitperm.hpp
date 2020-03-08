@@ -65,7 +65,7 @@ namespace bitperm {
         if (!isValidPermutation(permutation))
             throw std::runtime_error("Invalid permutation: No inverse");
 
-        std::vector<int> r (permutation.size());
+        std::vector<char> r (permutation.size());
         for (int i = 0; i < r.size(); ++i)
             r[permutation[i]] = i;
 
@@ -77,7 +77,7 @@ namespace bitperm {
     inline
     auto generatePermutation(int n){
 
-        std::vector<int> permutation(n);
+        std::vector<char> permutation(n);
 
         for (int i = 0; i < n; ++i)
             permutation[i] = i;
