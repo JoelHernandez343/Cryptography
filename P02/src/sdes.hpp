@@ -8,16 +8,9 @@
 
 #include <iostream>
 
+#include "helpers.hpp"
+
 namespace sdes {
-
-    void printBits(unsigned short c){
-
-    for (int i = 9; ~i; --i)
-        std::cout << ((c >> i) & 1) << " ";
-
-    std::cout << "\n";
-
-}
 
     // Calculate a mod n
     inline
@@ -27,7 +20,7 @@ namespace sdes {
 
     // Key Circular Left Shift n times
     inline 
-    void kcls(unsigned short & key, int n){
+    unsigned short kcls(unsigned short key, int n){
 
         short aux;
         while (n --> 0){
@@ -36,11 +29,12 @@ namespace sdes {
             aux |= (key & 0x0010) >> 4;
 
             key <<= 1;
+            key &= 0xFFDE;
             key |= aux;
 
         }
 
-        key &= 0x02FF;
+        return key &= 0x02FF;
 
     }
 

@@ -10,40 +10,37 @@
 #include <iostream>
 #include <vector>
 
+#include "helpers.hpp"
+
 namespace bitperm {
 
-    // Permute the unsigned primitive c's bits with the permutation perm
-    template<class T, typename = typename std::enable_if<std::is_unsigned<T>::value>::type >
-    inline
-    void permutation(T & c, std::vector<char> & perm){
+    // Permute the unsigned primitive c's bits with the permutation perm and return it
+    unsigned int permute(unsigned int n, int used, std::vector<char> & perm){
 
-        unsigned int tmp = -1, aux;
-        char shift, current, roof = perm.size() - 1;
+        unsigned int r = 0, aux;
+        short current, shift, diff = used - perm.size();
         bool right;
 
-        for (int i = roof; ~i; --i){
+        for (int i = 0; i < perm.size(); ++i){
 
-            current = roof - perm[roof - i];
+            current = used - 1 - perm[i];
 
-            aux = c | ~(1 << current);
+            aux = n & (1 << current);
+            
+            shift = i - perm[i];
+            right = shift > 0;
+            shift = right ? shift + diff : -(shift + diff);
 
-            shift = i - current;
-            right = shift < 0;
-            shift = right ? -shift : shift;
+            if (right)
+                aux = shift > 0 ? aux >> shift : aux << -shift;
+            else
+                aux = shift > 0 ? aux << shift : aux >> -shift;
 
-            while (shift --> 0)
-                aux = right ? (aux >> 1) | 0x80000000 : (aux << 1) | 0x01;
-
-            tmp &= aux;
+            r |= aux;
 
         }
 
-        roof++;
-        aux = 0;
-        while (roof --> 0)
-            aux |= 1 << roof;
-
-        c = aux & (T)tmp;
+        return r;
 
     }
 

@@ -4,25 +4,28 @@
 #include "bitperm.hpp"
 #include "sdes.hpp"
 
-void printBits(unsigned short c){
-
-    for (int i = 15; ~i; --i)
-        std::cout << ((c >> i) & 1) << " ";
-
-    std::cout << "\n";
-
-}
+#include "helpers.hpp"
 
 int main(void){
 
-    std::vector<char> p1 = {2, 4, 1, 6, 3, 9, 0, 8, 7, 5};
-    unsigned short k = 0b1010000010;
 
-    bitperm::permutation(k, p1);
-    
-    sdes::kcls(k, 1);
+    std::vector<char> p10 = {2, 4, 1, 6, 3, 9, 0, 8, 7, 5};
+    std::vector<char> p8  = {5, 2, 6, 3, 7, 4, 9, 8};
 
-    printBits(k);
+    unsigned short k = 0b1010000010, k1, k2;
+
+    k = bitperm::permute(k, 10, p10);
+    k = sdes::kcls(k, 1);
+    k1 = bitperm::permute(k, 10, p8);
+
+    help::printBits(k1, 8);
+
+    k = sdes::kcls(k, 2);
+
+    k2 = bitperm::permute(k, 10, p8);
+
+    help::printBits(k2, 8);
+
 
     return 0;
 
