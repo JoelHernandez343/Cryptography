@@ -58,7 +58,7 @@ namespace bitperm {
         
     }
 
-    // Calculate the inverse permutation
+    // Calculate the inverse permutation and return it
     inline
     auto inversePermutation(std::vector<char> permutation){
 
@@ -73,7 +73,8 @@ namespace bitperm {
 
     }
 
-    // Generate a random permutation of size n
+    // Generate a random permutation of size n.
+    // In order to work properly, is needed init the seed of srand(), for example, with time(0); 
     inline
     auto generatePermutation(int n){
 

@@ -14,13 +14,7 @@
 
 namespace sdes {
 
-    // Calculate a mod n
-    inline
-    int mod(int a, int n){
-        return a < 0 ? n - (-a) % n : a % n;
-    }
-
-    // Key Circular Left Shift n times
+    // Key Circular Left Shift n times, with a key of length 10.
     inline 
     unsigned short circularLeftShift(unsigned short key, int n){
 
@@ -40,7 +34,12 @@ namespace sdes {
 
     }
 
-    // Generate k1 and k2
+    // Generate k1 and k2 with permutation p10 and compression p8.
+    // Returned within a tuple, it can be used, for example:
+    // 
+    // auto [k1, k2] = generateKeys(...);
+    //
+    // This syntax is supported in C++17 and beyond.
     inline
     auto generatekeys(unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
 
@@ -57,7 +56,7 @@ namespace sdes {
 
     }
 
-    // sdes round
+    // Implementation of a generic sdes round.
     inline
     auto round(unsigned char input, std::vector<char> & exp, unsigned char key, char s0[4][4], char s1[4][4], std::vector<char> & p4){
 
@@ -81,7 +80,7 @@ namespace sdes {
 
     }
 
-    // Encrypt / Decrypt
+    // Encrypt / Decrypt, since, internally, are the same algorithm.
     inline 
     auto crypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, char s0[4][4], char s1[4][4], std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8, bool encrypt){
 
@@ -98,7 +97,7 @@ namespace sdes {
 
     }
 
-    // Encrypt using sdes
+    // Encrypt using sdes.
     inline
     auto encrypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, char s0[4][4], char s1[4][4], std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
 
@@ -106,7 +105,7 @@ namespace sdes {
 
     }
 
-    // Decrypt using sdes
+    // Decrypt using sdes.
     inline
     auto decrypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, char s0[4][4], char s1[4][4], std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
 
