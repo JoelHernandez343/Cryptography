@@ -1,6 +1,11 @@
 /*
- * Created by Joel Hernández
- * Github: github.com/JoelHernandez343
+  _____ ____  _____ _____ 
+ |   __|    \|   __|   __|  Simplified DES Implementation
+ |__   |  |  |   __|__   |  Version 1.0.1
+ |_____|____/|_____|_____|  https://github.com/JoelHernandez343/Cryptography
+
+ Created by Joel Hernández
+ Github: https://github.com/JoelHernandez343
  */
 
 #ifndef J_SIMPLIFIED_DES_HEADER_FUNCTIONS
