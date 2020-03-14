@@ -17,30 +17,21 @@ namespace bitperm {
     // Permute the unsigned primitive c's bits with the permutation perm and return it
     unsigned int permute(unsigned int n, int used, std::vector<char> & perm){
 
-        unsigned int r = 0, aux;
-        short current, shift, diff = used - perm.size();
-        bool right;
+        unsigned int result = 0;
+        short current;
 
         for (int i = 0; i < perm.size(); ++i){
 
             current = used - 1 - perm[i];
 
-            aux = n & (1 << current);
+            result <<= 1;
+
+            if (n & (1 << current))
+                result |= 1;
             
-            shift = i - perm[i];
-            right = shift > 0;
-            shift = right ? shift + diff : -(shift + diff);
-
-            if (right)
-                aux = shift > 0 ? aux >> shift : aux << -shift;
-            else
-                aux = shift > 0 ? aux << shift : aux >> -shift;
-
-            r |= aux;
-
         }
 
-        return r;
+        return result;
 
     }
 
