@@ -10,8 +10,6 @@
 #include <iostream>
 #include <vector>
 
-#include "helpers.hpp"
-
 namespace bitperm {
 
     // Permute the unsigned primitive c's bits with the permutation perm and return it

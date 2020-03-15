@@ -15,7 +15,6 @@
 #include <tuple>
 
 #include "bitperm.hpp"
-#include "helpers.hpp"
 
 namespace sdes {
 
