@@ -96,6 +96,12 @@ void printJSONexample(){
 
 }
 
+std::string jsonValidation(nlohmann::json j){
+
+
+
+}
+
 void jsonParsing(std::string jsonFile, bool encrypt){
 
     if (!std::filesystem::exists(jsonFile))
@@ -107,6 +113,11 @@ void jsonParsing(std::string jsonFile, bool encrypt){
     reader.close();
 
     nlohmann::json json = nlohmann::json::parse(tmp);
+
+    if (auto m = jsonValidation(json); m != "")
+        exitError(m);
+
+
 
     if (!json.count("modeOfOperation"))
         exitError("JSON error: missing 'modeOfOperation' field.");

@@ -3,8 +3,8 @@
  * Github: github.com/JoelHernandez343
  */
 
-#ifndef J_PERMUTATION_HEADER_FUNCTIONS
-#define J_PERMUTATION_HEADER_FUNCTIONS
+#ifndef J_BIT_PERMUTATION_HEADER_FUNCTIONS
+#define J_BIT_PERMUTATION_HEADER_FUNCTIONS
 
 #include <algorithm>
 #include <iostream>
