@@ -11,14 +11,14 @@ git reset --hard
 ```
 ## Requirements
 - Linux operative system.
-- GCC 8.1 compiler (or higher), or other compiler with C++17 features and `std::fylesystem` support. See this [instructions](#installing-gcc-9.2-on-ubuntu-and-variants-/-debian-base-linux) if you want to install GCC 9.0.
+- GCC 8.1 compiler (or higher), or other compiler with C++17 features and `std::fylesystem` support. See this [instructions](#installing-gcc-9.2-on-ubuntu-and-variants-or-debian-base-linux) if you want to install GCC 9.2.
 
 ## Usage
 Each folder program has its own `README.md` file with instructions and usage :blush:.
 - [Permutation README.md](permutation/README.md)
 - [SDES README.md](sdes/README.md)
 
-## Installing GCC 9.2 on Ubuntu and variants / Debian base Linux
+## Installing GCC 9.2 on Ubuntu and variants or Debian base Linux
 - Install GCC compile packages
 ```bash
 sudo apt install build-essential
