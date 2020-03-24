@@ -55,7 +55,7 @@ void printJSONexample(){
 std::string jsonValidation(nlohmann::json j, bool encrypt){
 
     if (!j.count("permutation"))
-        return "JSON error: Missing 'permutation' field";
+        return "JSON error: Missing 'permutation' field.";
     
     if (encrypt){
         
@@ -63,10 +63,10 @@ std::string jsonValidation(nlohmann::json j, bool encrypt){
             return "JSON error: Encrypting mode but 'encrypt' field is missing.";
 
         if (!j["encrypt"].count("inputFile"))
-            return "JSON error: 'inputField' on 'encrypt' is missing.";
+            return "JSON error: 'inputField' in 'encrypt' is missing.";
         
         if (!j["encrypt"].count("outputFile"))
-            return "JSON error: 'outputField' on 'encrypt' is missing.";
+            return "JSON error: 'outputField' in 'encrypt' is missing.";
 
     }
     else {
@@ -75,10 +75,10 @@ std::string jsonValidation(nlohmann::json j, bool encrypt){
             return "JSON error: Decrypting mode but 'decrypt' field is missing.";
 
         if (!j["decrypt"].count("inputFile"))
-            return "JSON error: 'inputField' on 'decrypt' is missing.";
+            return "JSON error: 'inputField' in 'decrypt' is missing.";
         
         if (!j["decrypt"].count("outputFile"))
-            return "JSON error: 'outputField' on 'decrypt' is missing.";
+            return "JSON error: 'outputField' in 'decrypt' is missing.";
 
     }
 
@@ -86,7 +86,7 @@ std::string jsonValidation(nlohmann::json j, bool encrypt){
 
 }
 
-auto readFromFile(std::string file){
+auto readFromFile(std::string & file){
 
     if (!std::filesystem::exists(file))
         exitError("File " + file + " doesn't exists.");
@@ -101,7 +101,7 @@ auto readFromFile(std::string file){
 
 }
 
-void writeToFile(std::string file, std::string content){
+void writeToFile(std::string & file, std::string & content){
 
     std::ofstream writer(file, std::ios::trunc);
     writer << content;
@@ -121,18 +121,18 @@ void jsonParsing(std::string jsonFile, bool encrypt){
 
     try {
 
-        nlohmann::json json = nlohmann::json::parse(readFromFile(jsonFile));
+        nlohmann::json j = nlohmann::json::parse(readFromFile(jsonFile));
 
-        if (auto m = jsonValidation(json, encrypt); m != "")
+        if (auto m = jsonValidation(j, encrypt); m != "")
             exitError(m);
 
-        std::vector<int> perm = json["permutation"];
+        std::vector<int> perm = j["permutation"];
         std::vector<int> inverse = perm::inversePermutation(perm);
         if (!inverse.size())
             exitError("Invalid permutation: No inverse property.");
 
-        std::string inputFile  = json[encrypt ? "encrypt" : "decrypt"]["inputFile"];
-        std::string outputFile = json[encrypt ? "encrypt" : "decrypt"]["outputFile"];
+        std::string inputFile  = j[encrypt ? "encrypt" : "decrypt"]["inputFile"];
+        std::string outputFile = j[encrypt ? "encrypt" : "decrypt"]["outputFile"];
 
         std::string input  = readFromFile(inputFile);
         std::string output = perm::encrypt(input, encrypt ? perm : inverse);
@@ -183,6 +183,7 @@ int main(int argc, char * argv[]){
         else if (result.count("json")){
 
             const auto & val = result["json"].as<std::string>();
+
             if (val == "all"){
 
                 printJSONdescription();

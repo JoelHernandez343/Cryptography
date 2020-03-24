@@ -62,7 +62,7 @@ namespace sdes {
 
     // Implementation of a generic sdes round.
     inline
-    auto round(unsigned char input, std::vector<char> & exp, unsigned char key, char s0[4][4], char s1[4][4], std::vector<char> & p4){
+    auto round(unsigned char input, std::vector<char> & exp, unsigned char key, std::vector<std::vector<char>> s0, std::vector<std::vector<char>> s1, std::vector<char> & p4){
 
         auto e = key ^ bitperm::permute(input, 4, exp);
         
@@ -86,7 +86,7 @@ namespace sdes {
 
     // Encrypt / Decrypt, since, internally, are the same algorithm.
     inline 
-    auto crypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, char s0[4][4], char s1[4][4], std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8, bool encrypt){
+    auto crypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, std::vector<std::vector<char>> s0, std::vector<std::vector<char>> s1, std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8, bool encrypt){
 
         auto [k1, k2] = generatekeys(key, p10, p8);
         auto iip = bitperm::inversePermutation(ip);
@@ -103,7 +103,7 @@ namespace sdes {
 
     // Encrypt using sdes.
     inline
-    auto encrypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, char s0[4][4], char s1[4][4], std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
+    auto encrypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, std::vector<std::vector<char>> s0, std::vector<std::vector<char>> s1, std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
 
         return crypt(input, ip, exp, s0, s1, p4, key, p10, p8, true);
 
@@ -111,7 +111,7 @@ namespace sdes {
 
     // Decrypt using sdes.
     inline
-    auto decrypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, char s0[4][4], char s1[4][4], std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
+    auto decrypt(unsigned char input, std::vector<char> & ip, std::vector<char> & exp, std::vector<std::vector<char>> s0, std::vector<std::vector<char>> s1, std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
 
         return crypt(input, ip, exp, s0, s1, p4, key, p10, p8, false);
 

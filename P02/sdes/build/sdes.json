@@ -1,5 +1,5 @@
 {
-    "modeOfOperation": "simple",
+    "iv": " 01100101",
     "encrypt": {
         "inputFile": "message.txt",
         "outputFile": "message.sdes"
@@ -9,6 +9,7 @@
         "outputFile": "message.txt"
     },
     "keyConfig": {
+        "random": false,
         "key": "1010000010",
         "p10": [2, 4, 1, 6, 3, 9, 0, 8, 7, 5],
         "p8": [5, 2, 6, 3, 7, 4, 9, 8]
