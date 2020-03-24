@@ -38,6 +38,7 @@ namespace help {
 
     }
 
+    // Generate an array of length `length` fill w/ random bits
     inline
     unsigned int randomBits(int length){
         

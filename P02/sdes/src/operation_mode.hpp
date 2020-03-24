@@ -13,6 +13,7 @@
 
 namespace opmode {
 
+    inline
     auto encryptCBC(std::string & input, unsigned char iv,std::vector<char> & ip, std::vector<char> & exp, std::vector<std::vector<char>> s0, std::vector<std::vector<char>> s1, std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
         
         std::string output = "";
@@ -32,6 +33,7 @@ namespace opmode {
 
     }
 
+    inline
     auto decryptCBC(std::string & input, unsigned char iv,std::vector<char> & ip, std::vector<char> & exp, std::vector<std::vector<char>> s0, std::vector<std::vector<char>> s1, std::vector<char> &p4, unsigned short key, std::vector<char> & p10, std::vector<char> & p8){
 
         std::string output = "";

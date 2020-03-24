@@ -1,11 +1,11 @@
 {
     "permutation": [3, 2, 1, 0],
     "encrypt": {
-        "inputFile": "./build/in.txt",
-        "outputFile": "./build/out.txt"
+        "inputFile": "in.txt",
+        "outputFile": "out.txt"
     },
     "decrypt": {
-        "inputFile": "./build/out.txt",
-        "outputFile": "./build/in.txt"
+        "inputFile": "out.txt",
+        "outputFile": "in.txt"
     }
 }

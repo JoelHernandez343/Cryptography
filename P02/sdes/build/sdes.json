@@ -1,5 +1,5 @@
 {
-    "iv": " 01100101",
+    "iv": "11101000",
     "encrypt": {
         "inputFile": "message.txt",
         "outputFile": "message.sdes"
