@@ -23,7 +23,7 @@ void printJSONdescription(){
     std::cout << "JSON configuration description: \n"
               << "\033[40;33mWARN\033[0m All the permutation's index must begin in 0\n\n"
 
-              << "  permutation [array<int>] Define the permutation block."
+              << "  permutation [array<int>] Define the permutation block.\n"
               
               << "  encrypt | descrypt       Define the files to work with.\n"
                  "    inputFile              Set the input file.\n"
