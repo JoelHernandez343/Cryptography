@@ -1,0 +1,7 @@
+{
+    "permutation": [1, 2],
+    "encrypt": {
+        "inputFile": "Hola",
+        "outputFile": "hola"
+    }
+}

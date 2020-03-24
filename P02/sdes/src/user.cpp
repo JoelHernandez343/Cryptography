@@ -105,7 +105,7 @@ std::string jsonValidation(nlohmann::json j){
 void jsonParsing(std::string jsonFile, bool encrypt){
 
     if (!std::filesystem::exists(jsonFile))
-        exitError("JSON file " + jsonFile + "doesn't exists.");
+        exitError("JSON file " + jsonFile + " doesn't exists.");
 
     std::ifstream reader(jsonFile);
     std::istreambuf_iterator<char> it(reader), end;
@@ -176,7 +176,7 @@ int main(int argc, char * argv[]){
                 printJSONexample();
             
             else 
-                exitError("Invalid --json option:" + v[0]);
+                exitError("Invalid --json option:" + v);
 
         }
         else 
