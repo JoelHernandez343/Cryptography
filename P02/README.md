@@ -11,7 +11,7 @@ git reset --hard
 ```
 ## Requirements
 - Linux operative system.
-- GCC 8.1 compiler (or higher), or other compiler with C++17 features and `std::fylesystem` support. See this [instructions](#installing-gcc-9.2-on-ubuntu-and-variants-or-debian-base-linux) if you want to install GCC 9.2.
+- GCC 8.1 compiler (or higher), or other compiler with C++17 features and `std::fylesystem` support. See this [instructions](#installing-gcc-92-on-ubuntu-and-variants-or-debian-base-linux) if you want to install GCC 9.2.
 
 ## Usage
 Each folder program has its own `README.md` file with instructions and usage :blush:.
