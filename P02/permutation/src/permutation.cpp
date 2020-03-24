@@ -18,15 +18,37 @@ void exitError(std::string message){
 
 }
 
-void printJSONexample(){
+void printJSONdescription(){
 
+    std::cout << "JSON configuration description: \n"
+              << "\033[40;33mWARN\033[0m All the permutation's index must begin in 0\n\n"
 
+              << "  permutation [array<int>] Define the permutation block."
+              
+              << "  encrypt | descrypt       Define the files to work with.\n"
+                 "    inputFile              Set the input file.\n"
+                 "    outputFile             Set the output file.\n\n";
 
 }
 
-void printJSONdescription(){
+void printJSONexample(){
 
+    std::cout << "JSON structure example:\n";
 
+    nlohmann::json example =
+    {
+        {"permutation", {5, 2, 6, 3, 7, 4, 1, 0}},
+        {"encrypt", {
+            {"inputFile", "in.txt"},
+            {"outputFile", "out.txt"}
+        }},
+        {"decrypt", {
+            {"inputFile", "out.txt"},
+            {"outputFile", "in.txt"}
+        }},
+    };
+
+    std::cout << std::setw(4) << example << "\n";
 
 }
 
@@ -64,6 +86,31 @@ std::string jsonValidation(nlohmann::json j, bool encrypt){
 
 }
 
+auto readFromFile(std::string file){
+
+    if (!std::filesystem::exists(file))
+        exitError("File " + file + " doesn't exists.");
+    
+    if (std::filesystem::is_directory(file))
+        exitError("File name " + file + " is a directory.");
+
+    std::ifstream reader(file);
+    std::istreambuf_iterator<char> it(reader), end;
+
+    return std::string(it, end);
+
+}
+
+void writeToFile(std::string file, std::string content){
+
+    std::ofstream writer(file, std::ios::trunc);
+    writer << content;
+    writer.close();
+
+    std::cout << "\033[40;32mDONE\033[0m Output file: " << file << "\n";
+
+}
+
 void jsonParsing(std::string jsonFile, bool encrypt){
 
     if (!std::filesystem::exists(jsonFile))
@@ -71,28 +118,26 @@ void jsonParsing(std::string jsonFile, bool encrypt){
     
     if (std::filesystem::is_directory(jsonFile))
         exitError("JSON file name " + jsonFile + " is a directory.");
-    
-    std::ifstream reader(jsonFile);
-    std::istreambuf_iterator<char> it(reader), end;
-    std::string tmp (it, end);
-    reader.close();
 
     try {
 
-        nlohmann::json json = nlohmann::json::parse(tmp);
+        nlohmann::json json = nlohmann::json::parse(readFromFile(jsonFile));
 
         if (auto m = jsonValidation(json, encrypt); m != "")
             exitError(m);
 
-        std::vector<int> permutation = json["permutation"];
-        if (!perm::hasInverse(permutation))
+        std::vector<int> perm = json["permutation"];
+        std::vector<int> inverse = perm::inversePermutation(perm);
+        if (!inverse.size())
             exitError("Invalid permutation: No inverse property.");
 
         std::string inputFile  = json[encrypt ? "encrypt" : "decrypt"]["inputFile"];
         std::string outputFile = json[encrypt ? "encrypt" : "decrypt"]["outputFile"];
 
-        
-        
+        std::string input  = readFromFile(inputFile);
+        std::string output = perm::encrypt(input, encrypt ? perm : inverse);
+
+        writeToFile(outputFile, output);
 
     } catch(std::exception const & e){
 

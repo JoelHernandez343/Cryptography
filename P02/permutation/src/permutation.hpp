@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 
-#include "utf8.hpp"
+#include "../../include/utf8.hpp"
 
 namespace perm {
 
@@ -49,7 +49,7 @@ namespace perm {
     auto inversePermutation(std::vector<int> permutation){
 
         if (!hasInverse(permutation))
-            return std::vector<int>({});
+            return std::vector<int>(0);
 
         std::vector<int> r (permutation.size());
         for (int i = 0; i < r.size(); ++i)
@@ -80,12 +80,32 @@ namespace perm {
     auto encrypt(std::string input, std::vector<int> perm){
 
         auto in = utf8::trim(input);
+
         int d = (perm.size() - (in.size() % perm.size())) % perm.size();
+
+        if (d)
+            std::cout << "\033[40;33mWARN\033[0m Added " << d << " 0's to end\n";
 
         for (int i = 0; i < d; ++i)
             in.push_back("0");
         
-        
+        std::string out = "";
+        out.reserve(in.size());
+
+        for (int i = 0; i < in.size(); i += perm.size()){
+
+            std::vector<std::string> aux(perm.size());
+            for (int j = 0; j < perm.size(); ++j)
+                aux[j] = in[j + i];
+
+            aux = permute(aux, perm);
+
+            for (int j = 0; j < perm.size(); ++j)
+                out += aux[j];
+
+        }
+
+        return out;
 
     }
 

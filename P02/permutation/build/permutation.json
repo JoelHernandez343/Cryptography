@@ -1,7 +1,11 @@
 {
-    "permutation": [1, 2],
+    "permutation": [3, 2, 1, 0],
     "encrypt": {
-        "inputFile": "Hola",
-        "outputFile": "hola"
+        "inputFile": "./build/in.txt",
+        "outputFile": "./build/out.txt"
+    },
+    "decrypt": {
+        "inputFile": "./build/out.txt",
+        "outputFile": "./build/in.txt"
     }
 }
