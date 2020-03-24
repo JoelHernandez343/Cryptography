@@ -14,7 +14,7 @@ git reset --hard
 - GCC 8.1 compiler (or higher), or other compiler with C++17 features and `std::fylesystem` support. See this [instructions](#installing-gcc-92-on-ubuntu-and-variants-or-debian-base-linux) if you want to install GCC 9.2.
 
 ## Usage
-Each folder program has its own `README.md` file with instructions and usage :blush:.
+Each folder program has its own `README.md` file with instructions and usage :fire:.
 - [Permutation README.md](permutation/README.md)
 - [SDES README.md](sdes/README.md)
 
@@ -31,7 +31,7 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 ```bash
 sudo apt install gcc-9 g++-9
 ```
-- And make it default ones:
+- And make them default ones:
 ```bash
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-9
 ```
@@ -46,3 +46,7 @@ Copyright (C) 2019 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
+
+View this file on a `Mardown` viewer, or better, on [Github](https://github.com/JoelHernandez343/Cryptography/tree/master/P02)
+
+Cheers, Joel H. :blush:

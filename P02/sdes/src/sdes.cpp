@@ -40,17 +40,17 @@ void printJSONdescription(){
                  "    random [bool]         Define random mode key for encryption.\n"
                  "    key                   Binary form of the key. Necesary for decryption.\n"
                  "    p10 [array: 10]       The 10 permutation.\n"
-                 "    p8 [array: 8]         The compression permutation\n\n"
+                 "    p8 [array: 8]         The compression permutation.\n\n"
 
               << "  cryptConfig             The main process config.\n"
                  "    initialPermutation [array: 8]\n"
-                 "                          Initial permutation\n"
-                 "    expansion [array: 8 ] Expansion permutation\n"
-                 "    p4 [array: 4]         The 4 permutation\n"
+                 "                          Initial permutation.\n"
+                 "    expansion [array: 8 ] Expansion permutation.\n"
+                 "    p4 [array: 4]         The 4 permutation.\n"
                  "    s0: [array<array: 4>: 4]\n"
-                 "                          The s0 box\n"
+                 "                          The s0 box.\n"
                  "    s1: [array<array: 4>: 4]\n"
-                 "                          The s1 box\n\n";
+                 "                          The s1 box.\n\n";
 
 }
 
@@ -326,40 +326,6 @@ int main(int argc, char * argv[]){
 
     }
 
-
-
-    // unsigned char  m = 0b10111101;
-    // unsigned short k = 0b1010000010;
-
-    // std::vector<char> ip  = {1, 5, 2, 0, 3, 7, 4, 6};
-    // std::vector<char> exp = {3, 0, 1, 2, 1, 2, 3, 0};
-
-    // char s0[4][4] = {
-    //     {1, 0, 3, 2},
-    //     {3, 2, 1, 0},
-    //     {0, 2, 1, 3},
-    //     {3, 1, 3, 2}
-    // };
-
-    // char s1[4][4] = {
-    //     {0, 1, 2, 3},
-    //     {2, 0, 1, 3},
-    //     {3, 0, 1, 0},
-    //     {2, 1, 0, 3}
-    // };
-
-    // std::vector<char> p4  = {1, 3, 2, 0};
-    // std::vector<char> p10 = {2, 4, 1, 6, 3, 9, 0, 8, 7, 5};
-    // std::vector<char> p8  = {5, 2, 6, 3, 7, 4, 9, 8};
-
-    // auto c =  sdes::encrypt(m, ip, exp, s0, s1, p4, k, p10, p8);
-
-    // help::printBits(m, 8);
-    // help::printBits(c, 8);
-
-    // auto mm = sdes::decrypt(c, ip, exp, s0, s1, p4, k, p10, p8);
-
-    // help::printBits(mm, 8);
 
     return 0;
 
