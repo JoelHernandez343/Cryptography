@@ -31,6 +31,8 @@ namespace aes {
         {0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16}
     };
 
+    // char to int, get the hexadecimal value of the given char
+    // return -1 if a invalid char is given
     inline
     unsigned char ctoi(char c){
 
@@ -47,6 +49,8 @@ namespace aes {
 
     }
 
+    // Convert a hexadecimal key string representation to 
+    // a integer vector with that values
     inline
     auto getKeyFromStr(std::string & keyString){
 
@@ -67,6 +71,7 @@ namespace aes {
 
     }
 
+    // Rotate the given word
     inline
     void shiftColumn(unsigned int & column){
 
@@ -76,6 +81,7 @@ namespace aes {
 
     }
 
+    // Substitute the values of the column with the sbox's values
     inline
     void sBoxSubs(unsigned int & column){
 
@@ -86,6 +92,7 @@ namespace aes {
 
     }
 
+    // XOR with the round coeffient
     inline
     void roundCoeffiecient(unsigned int & column, int i){
 
@@ -93,6 +100,7 @@ namespace aes {
 
     }
 
+    // XOR with the rest of the columns
     inline
     void finalBuild(std::vector<unsigned int> & key, unsigned int column){
 
@@ -105,6 +113,7 @@ namespace aes {
 
     }
 
+    // AES key schedule round
     inline
     void round(std::vector<unsigned int> & key, int i){
 
@@ -117,6 +126,10 @@ namespace aes {
 
     }
 
+    // The key schedule process. Receives a string with the key's hexadecimal representation
+    // If the given key is 128 bits length (32 characters), executes 10 rounds
+    // If the given key is 192 bits length (48 characters), executes 8 truncated rounds
+    // Returns a integer vector with all words generated (44 if 128, 52 if 192).
     inline
     auto keySchedule(std::string keyString){
 
@@ -132,7 +145,7 @@ namespace aes {
             for (int j = 0; j < key.size() && i + j < result.size() ; ++j)
                 result[i + j] = key[j];
             
-            // No tiene sentido hacer una ronda que no se va a ocupar
+            // There is no point in making a round that will not be occupied
             if (i + key.size() >= result.size())
                 break;
                 
@@ -144,10 +157,12 @@ namespace aes {
 
     }
 
+    // Create a string with a aes matrix
     auto aesMatrix(std::vector<unsigned int> & values){
 
         unsigned char tmp[4][values.size()];
 
+        // Create the matrix with the words as columns
         for (int j = 0; j < values.size(); ++j){
 
             unsigned char * aux = (unsigned char *)&values[j];
@@ -159,6 +174,7 @@ namespace aes {
 
         std::stringstream buffer;
 
+        // Copy the matrix like hexadecimals in a buffer
         for (int i = 0; i < 4; ++i){
 
             std::ios::fmtflags flags(buffer.flags());
@@ -171,6 +187,7 @@ namespace aes {
 
         }
 
+        // Return the string inside the buffer
         return buffer.str();
 
     }

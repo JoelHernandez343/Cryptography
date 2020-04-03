@@ -60,6 +60,8 @@ namespace table {
 
     }
 
+    // Multiplies a polynomial 'a' with x^1 in its binary
+    // representation modulated 'm', under the field 'n'
     inline
     short multByX(short a, short m, int n){
 
@@ -69,6 +71,8 @@ namespace table {
 
     }
 
+    // Multiplies a polinomial 'a' with x^times in its binary
+    // representation modulated 'm', under the field 'n'
     inline
     short multByManyX(short a, short m, int n, int times){
 
@@ -82,6 +86,8 @@ namespace table {
 
     }
 
+    // Multiplies the polynomials a and b modulated m 
+    // under the field n
     inline
     short mult(short a, short b, short m, int n){
 
@@ -131,6 +137,8 @@ namespace table {
         writer << "m(x): ";
         bin ? (writer << bits(m, n + 1)) : (writer << hex(m, n + 1));
         writer << "\n";
+
+        // Table creation
 
         for (int i = 1; i < (1 << n); ++i){
 
