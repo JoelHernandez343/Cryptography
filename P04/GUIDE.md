@@ -35,6 +35,8 @@ sudo make install PREFIX=/usr/local
 I don't know how to for now :disappointed:
 
 ## Programing with Crypto++
+> *Warning*: The executables are too big (the following example 24mb!), don't commit them 
+
 If you installed successfully Crypto++ on your Linux SO, you must to be enable to compile and run the following program:
 
 ```c++
