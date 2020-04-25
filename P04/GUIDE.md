@@ -76,8 +76,8 @@ And run it:
 ```bash
 ./test
 # Possible output:
-x = ac469320f16f659ah
-y = 76661cb77ff066fh
+x = 91ee423bc8dd0d0ah
+y = 40b4c38e2f567ea5h
 x*y = 4fad3f43030d1c99248c2401614a9c6h
 ```
 Happy coding! :blush:
