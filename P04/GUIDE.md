@@ -35,7 +35,6 @@ sudo make install PREFIX=/usr/local
 I don't know how to for now :disappointed:
 
 ## Programing with Crypto++
-> *Warning*: The executables are too big (the following example 24mb!), don't commit them 
 
 If you installed successfully Crypto++ on your Linux SO, you must to be enable to compile and run the following program:
 
@@ -63,8 +62,16 @@ int main(int argc, char* argv[])
 ```
 And compile it with `Static Linking`:
 ```bash
-g++ -I/usr/local/include test.cpp /usr/local/lib/libcryptopp.a -o test
+g++ test.cpp -o test -s -l:libcryptopp.a   
 ```
+`-o`: Indicate the output file.
+
+`-s`: Quit all debug information from the linker.
+
+`-l`: Static link with the library.
+
+> *Warning*: The executables are too big with debug information! -s is important if you don't want to debug / you are in production.
+
 And run it:
 ```bash
 ./test
