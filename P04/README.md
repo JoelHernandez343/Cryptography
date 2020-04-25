@@ -18,12 +18,12 @@ may immediately lead to a grade less than 6.
 [Crypto++](https://www.cryptopp.com/) (also known as CryptoPP, libcrypto++, and libcryptopp) is a free and open-source C++ class library of cryptographic algorithms and schemes written by Wei Dai.
 ## Installation
 ### Linux :penguin:
-Please follow the instructions in [GUIDE.md](GUIDE.md#Install-Crypto++-on-Linux) or the [official documentation](https://www.cryptopp.com/wiki/Linux).
+Please follow the instructions in [GUIDE.md](GUIDE.md#install-crypto-on-linux) or the [official documentation](https://www.cryptopp.com/wiki/Linux).
 ### Windows :bug:
 I am investigating :c
 ## Usage
 ### Client programs on linux
-Please follow the instructions in [GUIDE.md](GUIDE.md#Programming-with-Crypto++-on-Linux).
+Please follow the instructions in [GUIDE.md](GUIDE.md#programming-with-crypto-on-linux).
 ### Client programs on Windows
 Nothing to see here...
 
