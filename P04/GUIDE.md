@@ -1,8 +1,8 @@
 # Guide to develop with Crypto++
 ## Install Crypto++ on Linux
-According to the [official documentation](https://www.cryptopp.com/wiki/Linux), we can use the official respositories through *apt* (or other distribution package manager), but it didn't work for me (KDE neon), and also the apt version is 6 and the latest version of crypto++ is 8.2 (25-04-2020).
+According to the [official documentation](https://www.cryptopp.com/wiki/Linux), we can use the official repositories through *apt* (or other distribution package manager), but it didn't work for me (KDE neon), and also the apt version is 6 and the latest version of crypto++ is 8.2 (25-04-2020).
 
-So, I install crypto++ through manual installation ([official guide here](https://www.cryptopp.com/wiki/Linux#Build_and_Install_the_Library))
+So, I install crypto++ through the manual installation ([official guide here](https://www.cryptopp.com/wiki/Linux#Build_and_Install_the_Library))
 ### Manual installation
 1. Download latest or the desired version from [here](https://www.cryptopp.com/#download) and / or
 2. Create a subfolder where unzip the zip folder (optional / recommended). e.g `cryptopp`:
@@ -34,7 +34,7 @@ sudo make install PREFIX=/usr/local
 ## Install Crypto++ on Windows
 I don't know how to for now :disappointed:
 
-## Programing with Crypto++
+## Programming with Crypto++
 
 If you installed successfully Crypto++ on your Linux SO, you must to be enable to compile and run the following program:
 
