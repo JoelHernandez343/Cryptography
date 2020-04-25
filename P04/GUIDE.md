@@ -34,7 +34,7 @@ sudo make install PREFIX=/usr/local
 ## Install Crypto++ on Windows
 I don't know how to for now :disappointed:
 
-## Programming with Crypto++
+## Programming with Crypto++ on Linux
 
 If you installed successfully Crypto++ on your Linux SO, you must to be enable to compile and run the following program:
 
