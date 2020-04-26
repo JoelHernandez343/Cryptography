@@ -9,10 +9,10 @@ may immediately lead to a grade less than 6.
 1. Choose a cryptographic library for one of the programming languages mentioned above.
 2. Find how to do the following and test it.
     - [x] Use a cryptographically secure pseudorandom generator.
-    - [ ] Key generation for secret-key cryptography.
-    - [ ] Encryption and decryption using a stream cipher. Find out which are the stream ciphers available in the cryptographic library of your choice.
-    - [ ] Encryption and decryption for at least three block ciphers (3DES, AES and another one).
-    - [ ] Use of modes of operation. Prove all the traditional modes of operation we studied in class: ECB, CBC, CTR, OFB, CFB.
+    - [x] Key generation for secret-key cryptography.
+    - [x] Encryption and decryption using a stream cipher. Find out which are the stream ciphers available in the cryptographic library of your choice.
+    - [x] Encryption and decryption for at least three block ciphers (3DES, AES and another one).
+    - [x] Use of modes of operation. Prove all the traditional modes of operation we studied in class: ECB, CBC, CTR, OFB, CFB.
     - [ ] Encryption and decryption combining a block cipher and each mode of operation. Use files of different sizes (start at 100kb) to prove this point.
 ## Crypto++
 [Crypto++](https://www.cryptopp.com/) (also known as CryptoPP, libcrypto++, and libcryptopp) is a free and open-source C++ class library of cryptographic algorithms and schemes written by Wei Dai.
