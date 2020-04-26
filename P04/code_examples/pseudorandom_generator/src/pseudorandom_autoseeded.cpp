@@ -1,5 +1,6 @@
 /*
- * Generate 100 pseudorandom integers of 64 bits
+ * Generate 10 pseudorandom integers of 64 bits
+ * WARN: Insecure, read from the entropy pool of the OS!
  */
 
 #include <iostream>
@@ -14,7 +15,7 @@ int main(void){
     CryptoPP::AutoSeededRandomPool prng;
     
     // Internally creates a Integer with the pseudorandom generator and the length
-    for (int i = 0 ; i < 100; ++i)
+    for (int i = 0 ; i < 10; ++i)
         std::cout << i << " " << std::hex << CryptoPP::Integer(prng, 64) << std::dec << "\n";
 
     return 0;
