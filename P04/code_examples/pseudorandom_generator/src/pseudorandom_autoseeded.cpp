@@ -1,6 +1,5 @@
 /*
  * Generate 10 pseudorandom integers of 64 bits
- * WARN: Insecure, read from the entropy pool of the OS!
  */
 
 #include <iostream>
