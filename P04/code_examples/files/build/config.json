@@ -10,5 +10,5 @@
     },
     "iv": "FA57ECAE32CC502BD91F6CAF2476C151",
     "key": "8C0581E4BCAD5D1FF4FA669F63B8FC81",
-    "mode": "cbc"
+    "mode": "ecb"
 }

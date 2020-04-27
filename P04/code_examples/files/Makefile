@@ -1,3 +1,3 @@
 C = g++
 files: src/files.cpp
-	$(C) src/files.cpp -o build/files -s
+	$(C) src/files.cpp -o build/files -s -l:libcryptopp.a

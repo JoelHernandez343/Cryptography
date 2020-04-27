@@ -2,6 +2,9 @@
 #include <fstream>
 #include <sstream> 
 #include <iomanip>
+#include <string>
+
+#include "crypto.hpp"
 
 #include "../include/cxxopts.hpp"
 #include "../include/json.hpp"
@@ -123,6 +126,16 @@ std::string jsonValidation(nlohmann::json j, bool encrypt) {
     if (!j[cryptMode].count("outputFile"))
         return "JSON error: 'outputField' in '" + cryptMode + "' is missing.";
 
+    if (!encrypt) {
+
+        if (!j.count("key"))
+            return "JSON error: Decrypting mode but 'key' is missing.";
+        
+        if (mode != "ecb" && !j.count("iv"))
+            return "JSON error: Decrypting mode and mode of operation selected is '" + mode + "' but 'iv' is missing.";
+
+    }
+
     return "";
 
 }
@@ -136,7 +149,24 @@ void jsonParsing(std::string jsonFileName, bool encrypt) {
         std::string m = jsonValidation(j, encrypt);
         if (m != "")
             exitError(m);
-        
+
+        if (!encrypt || j.count("key")){
+
+            m = crypto::isValidKey(j["key"], j["algorithm"]);
+            if (m != "")
+                exitError(m);
+
+        }
+
+        if (j["mode"] != "ecb" && (!encrypt || j.count("iv"))){
+
+            m = crypto::isValidIv(j["iv"], j["algorithm"]);
+            if (m != "")
+                exitError(m);
+
+        }
+
+
         std::string algorithm = j["algorithm"];
         std::string mode = j["mode"];
 
@@ -145,6 +175,21 @@ void jsonParsing(std::string jsonFileName, bool encrypt) {
 
         std::string input  = readFromFile(inputFile);
         std::string output;
+
+        if (mode == "ecb") {
+
+            std::string key = j.count("key") ? j["key"] : ""; 
+            
+            if (encrypt)
+                output = crypto::encryptECB(input, algorithm, key);
+            else
+                output = crypto::decryptECB(input, algorithm, key);
+
+        } else {
+
+            exitError("Aun no implementado :p");
+
+        }
 
         writeToFile(outputFile, output);
 
