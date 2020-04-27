@@ -169,27 +169,14 @@ void jsonParsing(std::string jsonFileName, bool encrypt) {
 
         std::string algorithm = j["algorithm"];
         std::string mode = j["mode"];
+        std::string key = j.count("key") ? j["key"] : "";
+        std::string iv = (mode != "ecb" && j.count("iv")) ? j["iv"] : "";
 
         std::string inputFile  = j[encrypt ? "encrypt" : "decrypt"]["inputFile"];
         std::string outputFile = j[encrypt ? "encrypt" : "decrypt"]["outputFile"];
 
         std::string input  = readFromFile(inputFile);
-        std::string output;
-
-        if (mode == "ecb") {
-
-            std::string key = j.count("key") ? j["key"] : ""; 
-            
-            if (encrypt)
-                output = crypto::encryptECB(input, algorithm, key);
-            else
-                output = crypto::decryptECB(input, algorithm, key);
-
-        } else {
-
-            exitError("Aun no implementado :p");
-
-        }
+        std::string output = encrypt ? crypto::encrypt(input, algorithm, mode, key, iv) : crypto::decrypt(input, algorithm, mode, key, iv);
 
         writeToFile(outputFile, output);
 

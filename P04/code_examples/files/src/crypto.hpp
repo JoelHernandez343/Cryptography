@@ -18,6 +18,22 @@
 
 namespace crypto {
 
+
+    template<class T>
+    struct modes {
+        typename CryptoPP::ECB_Mode<T>::Encryption ecbE;
+        typename CryptoPP::CBC_Mode<T>::Encryption cbcE;
+        typename CryptoPP::CTR_Mode<T>::Encryption ctrE;
+        typename CryptoPP::OFB_Mode<T>::Encryption ofbE;
+        typename CryptoPP::CFB_Mode<T>::Encryption cfbE;
+
+        typename CryptoPP::ECB_Mode<T>::Decryption ecbD;
+        typename CryptoPP::CBC_Mode<T>::Decryption cbcD;
+        typename CryptoPP::CTR_Mode<T>::Decryption ctrD;
+        typename CryptoPP::OFB_Mode<T>::Decryption ofbD;
+        typename CryptoPP::CFB_Mode<T>::Decryption cfbD;
+    };
+
     inline
     bool isValidHexChar(char c) {
 
@@ -47,7 +63,7 @@ namespace crypto {
     }
 
     inline
-    int getKeySizeFromAlgorithm(std::string algorithm) {
+    int getKeySize(std::string algorithm) {
 
         if (algorithm == "aes")
             return CryptoPP::AES::DEFAULT_KEYLENGTH;
@@ -63,7 +79,7 @@ namespace crypto {
     }
 
     inline
-    int getIvSizeFromAlgorithm(std::string algorithm) {
+    int getIvSize(std::string algorithm) {
 
         if (algorithm == "aes")
             return CryptoPP::AES::BLOCKSIZE;
@@ -119,12 +135,12 @@ namespace crypto {
 
         auto k = getHexFromString(key);
 
-        if (k.size() != getKeySizeFromAlgorithm(algorithm)){
+        if (k.size() != getKeySize(algorithm)){
 
             error += "Provided key size (";
             error += std::to_string(k.size());
             error += ") is wrong, key size needed (bytes): ";
-            error += std::to_string(getKeySizeFromAlgorithm(algorithm));
+            error += std::to_string(getKeySize(algorithm));
             error += ".";
 
         }
@@ -159,12 +175,12 @@ namespace crypto {
 
         auto v = getHexFromString(iv);
 
-        if (v.size() != getIvSizeFromAlgorithm(algorithm)){
+        if (v.size() != getIvSize(algorithm)){
 
             error += "Provided iv size (";
             error += std::to_string(v.size());
             error += ") is wrong, iv size needed (bytes): ";
-            error += std::to_string(getIvSizeFromAlgorithm(algorithm));
+            error += std::to_string(getIvSize(algorithm));
             error += ".";
 
         }
@@ -198,75 +214,294 @@ namespace crypto {
         return key;
     }
 
-    // Encrypt with ECB
-    std::string encryptECB(std::string & in, std::string algorithm, std::string key){
+    // Really ugly implementation, I can't use functions because the hierarchy class tree of Crypto++
 
-        CryptoPP::SecByteBlock k;
+    inline
+    std::string encrypt(std::string & input, std::string algorithm, std::string mode, std::string key, std::string iv){
 
-        // Converting string to byte block or generating a random one
-        if (key == "")
-            k = ranBlock(getKeySizeFromAlgorithm(algorithm), "key");
-        else
-            k = getHexFromString(key);
-
+        CryptoPP::SecByteBlock k = key == "" ? ranBlock(getKeySize(algorithm), "key") : getHexFromString(key);
+        CryptoPP::SecByteBlock v = (mode != "ecb" && iv == "") ? ranBlock(getIvSize(algorithm), "iv") : getHexFromString(iv);
+        
         std::string result;
 
-        std::cout << "Encrypting in mode: ECB with " << algorithm << ".\n";  
-
+        std::cout << "Encrypting in mode: " << mode << " with: " << algorithm << ".\n";
+        
         if (algorithm == "aes") {
+            auto l = modes<CryptoPP::AES>();
+            
+            if (mode == "ecb"){
 
-            CryptoPP::ECB_Mode<CryptoPP::AES>::Encryption encryptor(k, k.size());
-            CryptoPP::StringSource ss(in, true, new CryptoPP::StreamTransformationFilter(encryptor, new CryptoPP::StringSink( result )));
+                auto e = l.ecbE;
+                mode == "ecb" ? e.SetKey(k, k.size()) : e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
 
+            }
+            
+            if (mode == "cbc"){
+
+                auto e = l.cbcE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ctr"){
+
+                auto e = l.ctrE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ofb"){
+
+                auto e = l.ofbE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "cfb"){
+
+                auto e = l.cfbE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
         }
 
-        else if (algorithm == "3des") {
+        if (algorithm == "3des") {
+            auto l = modes<CryptoPP::DES_EDE3>();
+            
+            if (mode == "ecb"){
 
-            CryptoPP::ECB_Mode<CryptoPP::DES_EDE3>::Encryption encryptor(k, k.size());
-            CryptoPP::StringSource ss(in, true, new CryptoPP::StreamTransformationFilter(encryptor, new CryptoPP::StringSink( result )));
+                auto e = l.ecbE;
+                mode == "ecb" ? e.SetKey(k, k.size()) : e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
 
+            }
+            
+            if (mode == "cbc"){
+
+                auto e = l.cbcE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ctr"){
+
+                auto e = l.ctrE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ofb"){
+
+                auto e = l.ofbE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "cfb"){
+
+                auto e = l.cfbE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
         }
 
-        else {
+        if (algorithm == "idea") {
+            auto l = modes<CryptoPP::IDEA>();
+            
+            if (mode == "ecb"){
 
-            CryptoPP::ECB_Mode<CryptoPP::IDEA>::Encryption encryptor(k, k.size());
-            CryptoPP::StringSource ss(in, true, new CryptoPP::StreamTransformationFilter(encryptor, new CryptoPP::StringSink( result )));
+                auto e = l.ecbE;
+                mode == "ecb" ? e.SetKey(k, k.size()) : e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
 
+            }
+            
+            if (mode == "cbc"){
+
+                auto e = l.cbcE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ctr"){
+
+                auto e = l.ctrE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ofb"){
+
+                auto e = l.ofbE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "cfb"){
+
+                auto e = l.cfbE;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
         }
 
         return result;
 
     }
 
-     // Decrypt with ECB
-    std::string decryptECB(std::string & in, std::string algorithm, std::string key){
+    inline
+    std::string decrypt(std::string & input, std::string algorithm, std::string mode, std::string key, std::string iv){
 
-        // Converting string to byte block
         CryptoPP::SecByteBlock k = getHexFromString(key);
-
+        CryptoPP::SecByteBlock v = getHexFromString(iv);
+        
         std::string result;
 
-        std::cout << "Decrypting in mode: ECB with " << algorithm << ".\n";  
-
+        std::cout << "Decrypting in mode: " << mode << " with: " << algorithm << ".\n";
+        
         if (algorithm == "aes") {
+            auto l = modes<CryptoPP::AES>();
+            
+            if (mode == "ecb"){
 
-            CryptoPP::ECB_Mode<CryptoPP::AES>::Decryption d(k, k.size());
-            CryptoPP::StringSource ss(in, true, new CryptoPP::StreamTransformationFilter(d, new CryptoPP::StringSink( result )));
+                auto e = l.ecbD;
+                e.SetKey(k, k.size());
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
 
+            }
+            
+            if (mode == "cbc"){
+
+                auto e = l.cbcD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ctr"){
+
+                auto e = l.ctrD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ofb"){
+
+                auto e = l.ofbD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "cfb"){
+
+                auto e = l.cfbD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
         }
 
-        else if (algorithm == "3des") {
+        if (algorithm == "3des") {
+            auto l = modes<CryptoPP::DES_EDE3>();
+            
+            if (mode == "ecb"){
 
-            CryptoPP::ECB_Mode<CryptoPP::DES_EDE3>::Decryption d(k, k.size());
-            CryptoPP::StringSource ss(in, true, new CryptoPP::StreamTransformationFilter(d, new CryptoPP::StringSink( result )));
+                auto e = l.ecbD;
+                e.SetKey(k, k.size());
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
 
+            }
+            
+            if (mode == "cbc"){
+
+                auto e = l.cbcD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ctr"){
+
+                auto e = l.ctrD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ofb"){
+
+                auto e = l.ofbD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "cfb"){
+
+                auto e = l.cfbD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
         }
 
-        else {
+        if (algorithm == "idea") {
+            auto l = modes<CryptoPP::IDEA>();
+            
+            if (mode == "ecb"){
 
-            CryptoPP::ECB_Mode<CryptoPP::IDEA>::Decryption d(k, k.size());
-            CryptoPP::StringSource ss(in, true, new CryptoPP::StreamTransformationFilter(d, new CryptoPP::StringSink( result )));
+                auto e = l.ecbD;
+                e.SetKey(k, k.size());
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
 
+            }
+            
+            if (mode == "cbc"){
+
+                auto e = l.cbcD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ctr"){
+
+                auto e = l.ctrD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "ofb"){
+
+                auto e = l.ofbD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
+
+            if (mode == "cfb"){
+
+                auto e = l.cfbD;
+                e.SetKeyWithIV(k, k.size(), v);
+                CryptoPP::StringSource ss(input, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink( result )));
+                
+            }
         }
 
         return result;

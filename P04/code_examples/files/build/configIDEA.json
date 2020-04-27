@@ -1,0 +1,14 @@
+{
+    "algorithm": "idea",
+    "decrypt": {
+        "inputFile": "out.txt",
+        "outputFile": "in.txt"
+    },
+    "encrypt": {
+        "inputFile": "in.txt",
+        "outputFile": "out.txt"
+    },
+    "iv": "C11F3AA7654962E0",
+    "key": "8C0581E4BCAD5D1FF4FA669F63B8FC81",
+    "mode": "cfb"
+}
