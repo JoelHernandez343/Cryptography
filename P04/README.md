@@ -16,15 +16,15 @@ may immediately lead to a grade less than 6.
     - [x] Encryption and decryption combining a block cipher and each mode of operation. Use files of different sizes (start at 100kb) to prove this point.
 ## Crypto++
 [Crypto++](https://www.cryptopp.com/) (also known as CryptoPP, libcrypto++, and libcryptopp) is a free and open-source C++ class library of cryptographic algorithms and schemes written by Wei Dai.
-## Installation
-### Linux :penguin:
+### Installation
+#### Linux :penguin:
 Please follow the instructions in [GUIDE.md](GUIDE.md#install-crypto-on-linux) or the [official documentation](https://www.cryptopp.com/wiki/Linux).
-### Windows :bug:
+#### Windows :bug:
 I am investigating :c
-## Usage
-### Client programs on linux
+### Usage
+#### Client programs on linux
 Please follow the instructions in [GUIDE.md](GUIDE.md#programming-with-crypto-on-linux).
-### Client programs on Windows
+#### Client programs on Windows
 Nothing to see here...
 
 Happy coding! :blush:
