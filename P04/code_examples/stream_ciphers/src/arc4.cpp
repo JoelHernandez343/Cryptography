@@ -28,22 +28,24 @@
 
 int main(void) {
 
+    // Message
     std::string message = "Hello world";
+    // Could be random generated with SecBlock and OS_GenerateRandomBlock
+    std::string key = "123"; 
 
-    std::string key = "123"; // Could be random generated with SecBlock and OS_GenerateRandomBlock
-
+    // Initialization
     CryptoPP::ARC4 arc4((CryptoPP::byte*)key.data(), key.size());
     
+    // Encryption
     arc4.ProcessData((CryptoPP::byte*)message.data(), (CryptoPP::byte*)message.data(), message.size());
-
     std::cout << "Encrypted message: " << message << "\n";
 
     // Reset
     arc4.SetKey((CryptoPP::byte*)key.data(), key.size());
-    arc4.ProcessData((CryptoPP::byte*)message.data(), (CryptoPP::byte*)message.data(), message.size());
 
+    // Decryption
+    arc4.ProcessData((CryptoPP::byte*)message.data(), (CryptoPP::byte*)message.data(), message.size());
     std::cout << "Decrypted message: " << message << "\n";
-    
 
     return 0;
 

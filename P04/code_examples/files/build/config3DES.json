@@ -1,14 +1,14 @@
 {
     "algorithm": "3des",
     "decrypt": {
-        "inputFile": "out.txt",
-        "outputFile": "in.txt"
+        "inputFile": "out2.txt",
+        "outputFile": "in2.txt"
     },
     "encrypt": {
-        "inputFile": "in.txt",
-        "outputFile": "out.txt"
+        "inputFile": "in2.txt",
+        "outputFile": "out2.txt"
     },
     "iv": "832CA97DC674F612",
     "key": "7926AF742C8FFAF9429D6F238D7ED79E53A27B6D5C91EFAE",
-    "mode": "ecb"
+    "mode": "ctr"
 }
