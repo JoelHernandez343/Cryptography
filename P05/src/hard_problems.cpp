@@ -169,9 +169,10 @@ int main(void) {
 
         auto primesFactors = getPrimeFactors(numbers[i]);
 
+        std::cout << "{ ";
         for (int j = 0; j < primesFactors.size(); ++j)
-            std::cout << primesFactors[j] << " ";
-        std::cout << "\n";
+            std::cout << primesFactors[j] << (j == primesFactors.size() - 1 ? " " : ", ");
+        std::cout << "}\n";
 
     }
     
