@@ -116,10 +116,10 @@ std::vector<ull> getPrimeFactors(ull n){
     auto r = std::vector<ull>();
 
     // Separated for optimization
-    if (n % 2 == 0)
+    if (!(n & 1))
         r.push_back(2);
-    while (n % 2 == 0)
-        n >>= 2; // Here
+    while (!(n & 1))
+        n >>= 1;
 
     for (ull i = 3; i * i <= n; ++i){
 
