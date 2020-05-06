@@ -12,6 +12,7 @@
 
 typedef unsigned long long ull;
 
+// Get a decimal string representation of i without the last dot put by CryptoPP
 std::string decCleanOfInteger (CryptoPP::Integer i){
 
     std::ostringstream oss;
@@ -24,6 +25,7 @@ std::string decCleanOfInteger (CryptoPP::Integer i){
 
 }
 
+// Encode the Integer n to a string of chars
 std::string integerToHex (CryptoPP::Integer n) {
 
     std::stringstream ss;
@@ -35,6 +37,7 @@ std::string integerToHex (CryptoPP::Integer n) {
     return str;
 }
 
+// Get the hex value of c if valid, -1 otherwise
 char getHex(char c) {
 
     if (c >= '0' && c <= '9')
@@ -48,6 +51,7 @@ char getHex(char c) {
 
 }
 
+// Converts (if is possible) the Integer to unsigned long long
 ull integerToULL(CryptoPP::Integer n) {
 
     auto aux = integerToHex(n);
@@ -99,12 +103,14 @@ ull babystep_giantstep(ull b, ull result, ull mod){
 
 }
 
+// Represents a query of the first problem
 struct query {
     ull base, result, module;
 
     query (ull b, ull r, ull m) : base(b), result(r), module(m) {};
 };
 
+// Get prime factors of n
 std::vector<ull> getPrimeFactors(ull n){
 
     auto r = std::vector<ull>();
