@@ -114,7 +114,6 @@ struct query {
 std::vector<ull> getPrimeFactors(ull n){
 
     auto r = std::vector<ull>();
-    r.reserve((ull)(std::ceil(std::sqrt(n))));
 
     if (n % 2 == 0)
         r.push_back(2);
