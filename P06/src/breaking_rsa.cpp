@@ -19,7 +19,7 @@ ll mod (ll a, ll n) {
 // Return -1 if a, b aren't coprimes.
 // O(log(min(a, b)))
 inline
-ll extEuclideanAlg(ll a, ll b){
+ll modular_inverse(ll a, ll b){
     // ll s = 0, s0 = 1;
     ll t = 1, t0 = 0;
     ll r = b, r0 = a;
@@ -48,8 +48,8 @@ ll extEuclideanAlg(ll a, ll b){
     return r0 != 1 ? -1 : mod (t0, a);
 }
 
-// Get prime factors of n
-std::vector<ull> getPrimeFactors(ull n){
+// Get prime factors of n, modified to the problem
+auto find_prime_factors(ull n){
 
     auto r = std::vector<ull>();
 
@@ -71,28 +71,26 @@ std::vector<ull> getPrimeFactors(ull n){
     if (n > 2)
         r.push_back(n);
 
-    return r;
+    return std::tuple(r[0], r[1]);
 
 }
 
+// Calculate d given (e, n)
 auto breaking_rsa(ull e, ull n) {
 
     std::cout << "Using e: " << e << "\nUsing n: " << n << "\n\n";
 
-    auto factors = getPrimeFactors(n);
-    ull p = factors[0];
-    ull q = factors[1];
-
+    auto [p, q] = find_prime_factors(n);
     std::cout << "p & q: " << p << " " << q <<"\n";
 
-    ull o = (p - 1) * (q - 1);
-
+    auto o = (p - 1) * (q - 1);
     std::cout << "o(n): " << o << "\n";
 
-    return std::tuple(extEuclideanAlg(o, e), o);
+    return std::tuple(modular_inverse(o, e), o);
 
 }
 
+// Check is e * d mod o is equals to 1
 void validate(ull e, ull d, ull o) {
 
     CryptoPP::Integer E = e, D = d, O = o;

@@ -1,0 +1,6 @@
+algorithm breaking_rsa (e, n)
+    (p, q) := find_prime_factors(n)
+    o := (p - 1) * (q - 1)
+    d := modular_inverse(e, o)
+
+    output "The secret key is: ", d
